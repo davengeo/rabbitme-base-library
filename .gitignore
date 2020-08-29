@@ -3,4 +3,6 @@
 config
 venv
 *.iml
-
+.mypy_cache
+.pytest_cache
+.coverage

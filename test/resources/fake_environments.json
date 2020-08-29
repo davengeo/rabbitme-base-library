@@ -1,0 +1,22 @@
+{
+  "test": {
+    "user": "admin_test",
+    "passwd": "pass_test",
+    "host": "clever-frog.rmq.cloudamqp.com"
+  },
+  "dev": {
+    "user": "admin_dev",
+    "passwd": "pass_dev",
+    "host": "yellow-hobbit.rmq.cloudamqp.com"
+  },
+  "acc": {
+    "user": "admin_acc",
+    "passwd": "pass_acc",
+    "host": "golden-bird.rmq.cloudamqp.com"
+  },
+  "prod": {
+    "user": "admin_prod",
+    "passwd": "pass_prod",
+    "host": "technical-wolf.rmq.cloudamqp.com"
+  }
+}

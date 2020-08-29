@@ -1,0 +1,15 @@
+argparse
+requests
+pyramda
+rabbitpy
+pytest
+pytest-mock
+assertpy
+setuptools==49.6.0
+wheel
+twine
+flake8
+mypy
+coverage
+safety
+bandit
