@@ -1,0 +1,8 @@
+{
+  "pattern": ".*",
+  "definition": {
+    "dead-letter-exchange": "exchange"
+  },
+  "priority": 0,
+  "apply-to": "all"
+}

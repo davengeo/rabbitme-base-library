@@ -2,7 +2,6 @@ import os
 import sys
 from unittest.mock import MagicMock
 
-import pytest
 from assertpy import assert_that, fail
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../lib')))
@@ -11,7 +10,6 @@ from ..common.fixtures import mock_response, fake_broker, mock_bad_response_with
 from common.exceptions import Unauthorised, VhostAlreadyExists, ServerErrorException, VhostNotFound  # noqa: E402
 
 
-@pytest.mark.wip
 def test_should_provide_trivial_vhost_when_get_vhosts(mocker: MagicMock) -> None:
     response = mock_response([{'name': 'test'}, {'name': 'test1'}])
     mocker.patch('requests.get', return_value=response)
@@ -21,7 +19,6 @@ def test_should_provide_trivial_vhost_when_get_vhosts(mocker: MagicMock) -> None
     assert_that(result).is_length(2).contains_only('test', 'test1')
 
 
-@pytest.mark.wip
 def test_should_raise_exception_when_get_vhost_but_500(mocker: MagicMock) -> None:
     response1 = mock_bad_response_with_status(500)
     mocker.patch('requests.get', return_value=response1)
@@ -32,7 +29,6 @@ def test_should_raise_exception_when_get_vhost_but_500(mocker: MagicMock) -> Non
         assert_that(e.args[0]).is_equal_to(500)
 
 
-@pytest.mark.wip
 def test_is_present_positive(mocker: MagicMock) -> None:
     response = mock_response([{'name': 'test'}, {'name': 'test1'}])
     mocker.patch('requests.get', return_value=response)
@@ -40,7 +36,6 @@ def test_is_present_positive(mocker: MagicMock) -> None:
     assert_that(a).is_true()
 
 
-@pytest.mark.wip
 def test_is_present_negative(mocker: MagicMock) -> None:
     response = mock_response([{'name': 'test1'}, {'name': 'test2'}])
     mocker.patch('requests.get', return_value=response)
@@ -48,7 +43,6 @@ def test_is_present_negative(mocker: MagicMock) -> None:
     assert_that(a).is_false()
 
 
-@pytest.mark.wip
 def test_should_raise_exception_when_create_vhost_but_already_exists(mocker: MagicMock) -> None:
     response_get = mock_response([{'name': 'test1'}])
     mocker.patch('requests.get', return_value=response_get)
@@ -71,7 +65,6 @@ def test_should_create_vhost(mocker: MagicMock) -> None:
     patch.assert_called_with('https://fake-broker/api/vhosts/test2', auth=('guest', 'guest'))
 
 
-@pytest.mark.wip
 def test_should_raise_exception_when_create_vhost_but_401(mocker: MagicMock) -> None:
     response_get = mock_response([{'name': 'test2'}])
     response_put = mock_bad_response_with_status(401)
