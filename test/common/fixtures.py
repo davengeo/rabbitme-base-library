@@ -13,3 +13,11 @@ def mock_bad_response_with_status(status_code: int) -> object:
     r.ok = False
     r.status_code = status_code
     return r
+
+
+def fake_broker() -> dict:
+    return {
+        'user': 'guest',
+        'passwd': 'guest',
+        'host': 'fake-broker'
+    }

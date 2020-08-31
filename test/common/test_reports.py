@@ -3,14 +3,12 @@ import os
 import sys
 import uuid
 
-import pytest
 from assertpy import assert_that
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../lib')))
 from common.report import Report  # noqa: E402
 
 
-@pytest.mark.wip
 def test_should_create_report() -> None:
     report = Report()
     report.set_context({

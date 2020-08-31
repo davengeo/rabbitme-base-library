@@ -14,3 +14,6 @@ class Config(object):
 
     def get_path(self, key: str) -> str:
         return os.path.abspath(os.path.join(os.path.dirname(self.path_file), self.config['Paths'][key]))
+
+    def get_file_path(self, key: str, file_name: str) -> str:
+        return os.path.join(self.get_path(key=key), file_name)

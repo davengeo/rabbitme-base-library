@@ -1,14 +1,12 @@
 import os
 import sys
 
-import pytest
 from assertpy import assert_that
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../lib')))
 from common.environments import Environments  # noqa: E402
 
 
-@pytest.mark.wip
 def test_should_open_fake_environment() -> None:
     fake_environments = os.path.abspath(os.path.join(os.path.dirname(__file__), '../resources/fake_environments.json'))
     envs = Environments(fake_environments)

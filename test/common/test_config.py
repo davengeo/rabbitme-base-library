@@ -2,14 +2,12 @@ import logging
 import os
 import sys
 
-import pytest
 from assertpy import assert_that, fail
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../lib')))
-from common.config import Config    # noqa: E402
+from common.config import Config  # noqa: E402
 
 
-@pytest.mark.wip
 def test_should_get_config_for_logging_level() -> None:
     config = Config(os.path.join(os.path.dirname(__file__), '../../app.ini'))
     logging_level = config.get_value('DEFAULT', 'logging_level')
@@ -18,13 +16,11 @@ def test_should_get_config_for_logging_level() -> None:
     logging.debug('testing config files')
 
 
-@pytest.mark.wip
 def test_should_get_config_for_config_files() -> None:
     config = Config(os.path.join(os.path.dirname(__file__), '../../app.ini'))
     assert_that(config.get_path('config_files')).ends_with('/py-rabbitmq-base/config')
 
 
-@pytest.mark.wip
 def test_should_raise_exception_if_key_not_found() -> None:
     config = Config(os.path.join(os.path.dirname(__file__), '../../app.ini'))
     try:
