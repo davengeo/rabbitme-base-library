@@ -17,7 +17,7 @@ class Template(object):
                 return json.load(json_file)
         except FileNotFoundError as e:
             raise e
-        except Exception as e:
+        except Exception:
             raise TemplateException(message='exception in template {}'.format(name),
                                     template_name=name)
 
@@ -30,6 +30,6 @@ class Template(object):
             return json.loads(filed)
         except FileNotFoundError as e:
             raise e
-        except Exception as e:
+        except Exception:
             raise TemplateException(message='exception in template {}'.format(name),
                                     template_name=name)

@@ -1,24 +1,19 @@
 import os
-import sys
 
-import pytest
 from assertpy import assert_that, fail
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../lib')))
-from common.templates import Template
 from common.exceptions import TemplateException
+from common.templates import Template
 
 template: Template = Template(basename=os.path.abspath(os.path.join(os.path.dirname(__file__), '../resources')))
 
 
-@pytest.mark.wip
 def test_should_load_existing_policy() -> None:
     result: dict = template.load_template('policies/dead-letter-policy')
     assert_that(result).is_equal_to(
         {'apply-to': 'all', 'definition': {'dead-letter-exchange': 'exchange'}, 'pattern': '.*', 'priority': 0})
 
 
-@pytest.mark.wip
 def test_should_raise_exception_when_not_found_template() -> None:
     try:
         template.load_template('policies/non-existing-policy')
@@ -27,7 +22,6 @@ def test_should_raise_exception_when_not_found_template() -> None:
         assert_that(e.filename).contains('policies/non-existing-policy.json')
 
 
-@pytest.mark.wip
 def test_should_raise_exception_when_bad_template() -> None:
     try:
         template.load_template('policies/example')
@@ -36,13 +30,11 @@ def test_should_raise_exception_when_bad_template() -> None:
         assert_that(e.message).contains('exception in template policies/example')
 
 
-@pytest.mark.wip
 def test_should_load_existing_template_and_fill_params() -> None:
     obj = template.load_template_with_args('policies/example', {'field': 'a', 'value': 'b'})
     assert_that(obj).is_equal_to({'a': 'b'})
 
 
-@pytest.mark.wip
 def test_should_raise_exception_when_not_found_template_with_args() -> None:
     try:
         template.load_template_with_args('policies/non-existing-policy', {'no': 'a', 'on': 'b'})

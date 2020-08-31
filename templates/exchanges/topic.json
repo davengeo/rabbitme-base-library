@@ -1,0 +1,8 @@
+{
+  "type": "topic",
+  "auto_delete": false,
+  "durable": true,
+  "internal": false,
+  "arguments": {
+  }
+}

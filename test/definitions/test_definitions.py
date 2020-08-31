@@ -1,17 +1,13 @@
-import os
-import sys
 from unittest.mock import MagicMock
 
 from assertpy import assert_that, fail
 
-from ..common.fixtures import mock_response, mock_bad_response_with_status, fake_broker
-
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../lib')))
 from common.exceptions import NotFoundException, BadRequest
 from definitions.definitions import get_definitions, load_definitions
+from ..common.fixtures import mock_response, mock_bad_response_with_status, fake_broker
 
 
-def get_definition_example():
+def get_definition_example() -> dict:
     return {
         'queues': [{
             'name': 'test-queue',
@@ -33,7 +29,7 @@ def test_should_get_definitions(mocker: MagicMock) -> None:
                              auth=('guest', 'guest'))
 
 
-def test_should_raise_exception_when_get_definitions_but_404(mocker) -> None:
+def test_should_raise_exception_when_get_definitions_but_404(mocker: MagicMock) -> None:
     response = mock_bad_response_with_status(404)
     patch = mocker.patch('requests.get', return_value=response)
     try:
@@ -44,7 +40,7 @@ def test_should_raise_exception_when_get_definitions_but_404(mocker) -> None:
                              auth=('guest', 'guest'))
 
 
-def test_should_load_definitions(mocker) -> None:
+def test_should_load_definitions(mocker: MagicMock) -> None:
     response = mock_response([])
     patch = mocker.patch('requests.post', return_value=response)
     load_definitions(broker=fake_broker(), vhost='test', definitions=get_definition_example())
@@ -52,7 +48,7 @@ def test_should_load_definitions(mocker) -> None:
                              auth=('guest', 'guest'), json=get_definition_example())
 
 
-def test_should_raise_exception_when_load_definitions_but_400(mocker) -> None:
+def test_should_raise_exception_when_load_definitions_but_400(mocker: MagicMock) -> None:
     response = mock_bad_response_with_status(400)
     patch = mocker.patch('requests.post', return_value=response)
     try:

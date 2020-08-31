@@ -1,0 +1,8 @@
+{
+  "type": "fanout",
+  "auto_delete": false,
+  "durable": true,
+  "internal": false,
+  "arguments": {
+  }
+}

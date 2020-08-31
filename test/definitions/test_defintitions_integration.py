@@ -1,15 +1,13 @@
 import os
-import sys
 
 import pytest
 from assertpy import assert_that
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../lib')))
 from common.config import Config
 from common.environments import Environments
 from common.templates import Template
-from vhost.vhost import create_vhost, delete_vhost
 from definitions.definitions import get_definitions, load_definitions
+from vhost.vhost import create_vhost, delete_vhost
 
 config: Config = Config(os.path.join(os.path.dirname(__file__), '../../app.ini'))
 envs: Environments = Environments(path_file=config.get_file_path('config_files', 'tme_environments.json'))
@@ -31,7 +29,7 @@ def test_should_get_definitions_from_env() -> None:
     delete_vhost(broker=broker, vhost='test-vhost')
 
 
-def get_queue_entry():
+def get_queue_entry() -> dict:
     return {
         'queues': [{
             'name': 'test-queue',

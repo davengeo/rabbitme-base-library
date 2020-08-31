@@ -1,13 +1,10 @@
-import os
-import sys
 from unittest.mock import MagicMock
 
 from assertpy import assert_that, fail
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../lib')))
+from common.exceptions import Unauthorised, VhostAlreadyExists, ServerErrorException, VhostNotFound  # noqa: E402
 from vhost.vhost import get_vhosts, is_present, create_vhost, delete_vhost  # noqa: E402
 from ..common.fixtures import mock_response, fake_broker, mock_bad_response_with_status  # noqa: E402
-from common.exceptions import Unauthorised, VhostAlreadyExists, ServerErrorException, VhostNotFound  # noqa: E402
 
 
 def test_should_provide_trivial_vhost_when_get_vhosts(mocker: MagicMock) -> None:
