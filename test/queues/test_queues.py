@@ -1,3 +1,5 @@
+from unittest.mock import MagicMock
+
 from assertpy import assert_that, fail
 
 from common.exceptions import NotFoundException, Unauthorised, ServerErrorException, BadRequest
@@ -5,7 +7,7 @@ from queues.queues import get_queues, is_present, create_queue, delete_queue
 from ..common.fixtures import mock_response, mock_bad_response_with_status, fake_broker
 
 
-def test_should_get_existing_queues(mocker) -> None:
+def test_should_get_existing_queues(mocker: MagicMock) -> None:
     response = mock_response([{'name': 'one'}, {'name': 'two'}])
     patch = mocker.patch('requests.get', return_value=response)
     broker = fake_broker()
@@ -16,7 +18,7 @@ def test_should_get_existing_queues(mocker) -> None:
         url='https://fake-broker/api/queues/EA', auth=('guest', 'guest'))
 
 
-def test_should_raise_exception_when_get_queues_but_404(mocker) -> None:
+def test_should_raise_exception_when_get_queues_but_404(mocker: MagicMock) -> None:
     response = mock_bad_response_with_status(404)
     patch = mocker.patch('requests.get', return_value=response)
     try:
@@ -28,7 +30,7 @@ def test_should_raise_exception_when_get_queues_but_404(mocker) -> None:
         url='https://fake-broker/api/queues/EA', auth=('guest', 'guest'))
 
 
-def test_should_raise_exception_when_get_queues_but_401(mocker) -> None:
+def test_should_raise_exception_when_get_queues_but_401(mocker: MagicMock) -> None:
     response = mock_bad_response_with_status(401)
     patch = mocker.patch('requests.get', return_value=response)
     try:
@@ -40,7 +42,7 @@ def test_should_raise_exception_when_get_queues_but_401(mocker) -> None:
         url='https://fake-broker/api/queues/EA', auth=('guest', 'guest'))
 
 
-def test_should_raise_exception_when_get_queues_but_500(mocker) -> None:
+def test_should_raise_exception_when_get_queues_but_500(mocker: MagicMock) -> None:
     response = mock_bad_response_with_status(500)
     patch = mocker.patch('requests.get', return_value=response)
     try:
@@ -52,7 +54,7 @@ def test_should_raise_exception_when_get_queues_but_500(mocker) -> None:
         url='https://fake-broker/api/queues/EA', auth=('guest', 'guest'))
 
 
-def test_should_raise_exception_when_get_queues_but_teapot(mocker) -> None:
+def test_should_raise_exception_when_get_queues_but_teapot(mocker: MagicMock) -> None:
     response = mock_bad_response_with_status(418)
     patch = mocker.patch('requests.get', return_value=response)
     try:
@@ -64,7 +66,7 @@ def test_should_raise_exception_when_get_queues_but_teapot(mocker) -> None:
         url='https://fake-broker/api/queues/EA', auth=('guest', 'guest'))
 
 
-def test_should_create_queue(mocker) -> None:
+def test_should_create_queue(mocker: MagicMock) -> None:
     response = mock_response([])
     patch = mocker.patch('requests.put', return_value=response)
     create_queue(broker=fake_broker(), vhost='EA', name='test', queue={'test': True})
@@ -73,7 +75,7 @@ def test_should_create_queue(mocker) -> None:
         auth=('guest', 'guest'), json={'test': True})
 
 
-def test_should_raise_exception_when_create_queue_but_400(mocker) -> None:
+def test_should_raise_exception_when_create_queue_but_400(mocker: MagicMock) -> None:
     response = mock_bad_response_with_status(400)
     patch = mocker.patch('requests.put', return_value=response)
     try:
@@ -86,7 +88,7 @@ def test_should_raise_exception_when_create_queue_but_400(mocker) -> None:
         auth=('guest', 'guest'), json={'test': True})
 
 
-def test_should_raise_exception_when_create_queue_but_404(mocker) -> None:
+def test_should_raise_exception_when_create_queue_but_404(mocker: MagicMock) -> None:
     response = mock_bad_response_with_status(404)
     patch = mocker.patch('requests.put', return_value=response)
     try:
@@ -98,7 +100,7 @@ def test_should_raise_exception_when_create_queue_but_404(mocker) -> None:
         auth=('guest', 'guest'), json={'test': True})
 
 
-def test_should_raise_exception_when_create_queue_but_401(mocker) -> None:
+def test_should_raise_exception_when_create_queue_but_401(mocker: MagicMock) -> None:
     response = mock_bad_response_with_status(401)
     patch = mocker.patch('requests.put', return_value=response)
     try:
@@ -110,7 +112,7 @@ def test_should_raise_exception_when_create_queue_but_401(mocker) -> None:
         auth=('guest', 'guest'), json={'test': True})
 
 
-def test_should_raise_exception_when_create_queue_but_500(mocker) -> None:
+def test_should_raise_exception_when_create_queue_but_500(mocker: MagicMock) -> None:
     response = mock_bad_response_with_status(500)
     patch = mocker.patch('requests.put', return_value=response)
     try:
@@ -122,7 +124,7 @@ def test_should_raise_exception_when_create_queue_but_500(mocker) -> None:
         auth=('guest', 'guest'), json={'test': True})
 
 
-def test_should_raise_exception_when_create_queue_but_teapot(mocker) -> None:
+def test_should_raise_exception_when_create_queue_but_teapot(mocker: MagicMock) -> None:
     response = mock_bad_response_with_status(418)
     patch = mocker.patch('requests.put', return_value=response)
     try:
@@ -134,7 +136,7 @@ def test_should_raise_exception_when_create_queue_but_teapot(mocker) -> None:
         auth=('guest', 'guest'), json={'test': True})
 
 
-def test_should_delete_queue(mocker) -> None:
+def test_should_delete_queue(mocker: MagicMock) -> None:
     response = mock_response([])
     patch = mocker.patch('requests.delete', return_value=response)
     delete_queue(broker=fake_broker(), vhost='EA', name='test')
@@ -143,7 +145,7 @@ def test_should_delete_queue(mocker) -> None:
         auth=('guest', 'guest'))
 
 
-def test_should_raise_exception_when_delete_queue_but_404(mocker) -> None:
+def test_should_raise_exception_when_delete_queue_but_404(mocker: MagicMock) -> None:
     response = mock_bad_response_with_status(404)
     patch = mocker.patch('requests.delete', return_value=response)
     try:
@@ -155,7 +157,7 @@ def test_should_raise_exception_when_delete_queue_but_404(mocker) -> None:
         auth=('guest', 'guest'))
 
 
-def test_should_raise_exception_when_delete_queue_but_401(mocker) -> None:
+def test_should_raise_exception_when_delete_queue_but_401(mocker: MagicMock) -> None:
     response = mock_bad_response_with_status(401)
     patch = mocker.patch('requests.delete', return_value=response)
     try:
@@ -167,7 +169,7 @@ def test_should_raise_exception_when_delete_queue_but_401(mocker) -> None:
         auth=('guest', 'guest'))
 
 
-def test_should_raise_exception_when_delete_queue_but_500(mocker) -> None:
+def test_should_raise_exception_when_delete_queue_but_500(mocker: MagicMock) -> None:
     response = mock_bad_response_with_status(500)
     patch = mocker.patch('requests.delete', return_value=response)
     try:
@@ -179,7 +181,7 @@ def test_should_raise_exception_when_delete_queue_but_500(mocker) -> None:
         auth=('guest', 'guest'))
 
 
-def test_should_raise_exception_when_delete_queue_but_teapot(mocker) -> None:
+def test_should_raise_exception_when_delete_queue_but_teapot(mocker: MagicMock) -> None:
     response = mock_bad_response_with_status(418)
     patch = mocker.patch('requests.delete', return_value=response)
     try:
