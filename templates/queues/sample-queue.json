@@ -1,0 +1,6 @@
+{
+  "type": "classic",
+  "auto_delete": false,
+  "durable": true,
+  "arguments": {}
+}
