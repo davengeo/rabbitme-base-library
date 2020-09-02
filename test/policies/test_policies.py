@@ -69,7 +69,7 @@ def test_should_raise_exception_when_create_policy_but_400(mocker: MagicMock) ->
 
 
 # noinspection PyTypeHints
-def test_should_raise_exception_when_create_policy_but_Exception(mocker: MagicMock) -> None:
+def test_should_raise_exception_when_create_policy_but_exception(mocker: MagicMock) -> None:
     response = mock_bad_response_with_status(512)
     response.reason = 'bad'  # type: ignore
     mocker.patch('requests.put', return_value=response)

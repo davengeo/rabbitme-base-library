@@ -15,6 +15,7 @@ class AmqpSenderConsumer(object):
         received: dict = {}
         for message in self.__amqp.basic_consume(queue=queue):
             message.ack()
+            self.__amqp.basic_cancel()
             received = message.json()
             break
         return received
