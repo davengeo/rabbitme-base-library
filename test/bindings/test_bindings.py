@@ -1,6 +1,5 @@
 from unittest.mock import MagicMock
 
-import pytest
 from assertpy import assert_that
 from pyramda import map
 
@@ -9,7 +8,6 @@ from common.exceptions import NotFoundException, Unauthorised, ServerErrorExcept
 from ..common.fixtures import mock_response, fake_broker, mock_bad_response_with_status
 
 
-@pytest.mark.wip
 def test_should_get_existing_bindings(mocker: MagicMock) -> None:
     bindings = [{'source': 'one-s', 'destination': 'one-d',
                  'routing_key': 'one-r', 'destination_type': 'queue', 'arguments': None},
@@ -22,7 +20,6 @@ def test_should_get_existing_bindings(mocker: MagicMock) -> None:
     patch.assert_called_with(url='https://fake-broker/api/bindings/EA', auth=('guest', 'guest'))
 
 
-@pytest.mark.wip
 def test_should_return_empty_list_when_get_bindings_but_no_bindings(mocker: MagicMock) -> None:
     bindings = []
     response = mock_response(bindings)
@@ -32,7 +29,6 @@ def test_should_return_empty_list_when_get_bindings_but_no_bindings(mocker: Magi
     patch.assert_called_with(url='https://fake-broker/api/bindings/EA', auth=('guest', 'guest'))
 
 
-@pytest.mark.wip
 def test_should_raise_exception_when_get_bindings_but_404(mocker: MagicMock) -> None:
     response = mock_bad_response_with_status(404)
     patch = mocker.patch('requests.get', return_value=response)
@@ -43,7 +39,6 @@ def test_should_raise_exception_when_get_bindings_but_404(mocker: MagicMock) -> 
     patch.assert_called_with(url='https://fake-broker/api/bindings/EA', auth=('guest', 'guest'))
 
 
-@pytest.mark.wip
 def test_should_raise_exception_when_get_bindings_but_401(mocker: MagicMock) -> None:
     response = mock_bad_response_with_status(401)
     patch = mocker.patch('requests.get', return_value=response)
@@ -54,7 +49,6 @@ def test_should_raise_exception_when_get_bindings_but_401(mocker: MagicMock) -> 
     patch.assert_called_with(url='https://fake-broker/api/bindings/EA', auth=('guest', 'guest'))
 
 
-@pytest.mark.wip
 def test_should_raise_exception_when_get_bindings_but_500(mocker: MagicMock) -> None:
     response = mock_bad_response_with_status(500)
     patch = mocker.patch('requests.get', return_value=response)
@@ -65,7 +59,6 @@ def test_should_raise_exception_when_get_bindings_but_500(mocker: MagicMock) -> 
     patch.assert_called_with(url='https://fake-broker/api/bindings/EA', auth=('guest', 'guest'))
 
 
-@pytest.mark.wip
 def test_should_raise_exception_when_get_bindings_but_teapot(mocker: MagicMock) -> None:
     response = mock_bad_response_with_status(418)
     patch = mocker.patch('requests.get', return_value=response)
@@ -76,7 +69,6 @@ def test_should_raise_exception_when_get_bindings_but_teapot(mocker: MagicMock) 
     patch.assert_called_with(url='https://fake-broker/api/bindings/EA', auth=('guest', 'guest'))
 
 
-@pytest.mark.wip
 def test_should_return_get_bindings_from_source(mocker: MagicMock) -> None:
     bindings = [{'source': 'one-s', 'destination': 'one-d',
                  'routing_key': 'one-r', 'destination_type': 'queue', 'arguments': None},
@@ -89,7 +81,6 @@ def test_should_return_get_bindings_from_source(mocker: MagicMock) -> None:
     patch.assert_called_with(url='https://fake-broker/api/exchanges/EA/test/bindings/source', auth=('guest', 'guest'))
 
 
-@pytest.mark.wip
 def test_should_return_empty_list_when_get_bindings_from_source_but_none(mocker: MagicMock) -> None:
     bindings = []
     response = mock_response(bindings)
@@ -99,7 +90,6 @@ def test_should_return_empty_list_when_get_bindings_from_source_but_none(mocker:
     patch.assert_called_with(url='https://fake-broker/api/exchanges/EA/test/bindings/source', auth=('guest', 'guest'))
 
 
-@pytest.mark.wip
 def test_should_raise_exception_when_get_bindings_from_source_but_404(mocker: MagicMock) -> None:
     response = mock_bad_response_with_status(404)
     patch = mocker.patch('requests.get', return_value=response)
@@ -110,7 +100,6 @@ def test_should_raise_exception_when_get_bindings_from_source_but_404(mocker: Ma
     patch.assert_called_with(url='https://fake-broker/api/exchanges/EA/test/bindings/source', auth=('guest', 'guest'))
 
 
-@pytest.mark.wip
 def test_should_raise_exception_when_get_bindings_from_source_but_401(mocker: MagicMock) -> None:
     response = mock_bad_response_with_status(401)
     patch = mocker.patch('requests.get', return_value=response)
@@ -121,7 +110,6 @@ def test_should_raise_exception_when_get_bindings_from_source_but_401(mocker: Ma
     patch.assert_called_with(url='https://fake-broker/api/exchanges/EA/test/bindings/source', auth=('guest', 'guest'))
 
 
-@pytest.mark.wip
 def test_should_raise_exception_when_get_bindings_from_source_but_500(mocker: MagicMock) -> None:
     response = mock_bad_response_with_status(500)
     patch = mocker.patch('requests.get', return_value=response)
@@ -132,7 +120,6 @@ def test_should_raise_exception_when_get_bindings_from_source_but_500(mocker: Ma
     patch.assert_called_with(url='https://fake-broker/api/exchanges/EA/test/bindings/source', auth=('guest', 'guest'))
 
 
-@pytest.mark.wip
 def test_should_raise_exception_when_get_bindings_from_source_but_teapot(mocker: MagicMock) -> None:
     response = mock_bad_response_with_status(418)
     patch = mocker.patch('requests.get', return_value=response)
@@ -143,7 +130,6 @@ def test_should_raise_exception_when_get_bindings_from_source_but_teapot(mocker:
     patch.assert_called_with(url='https://fake-broker/api/exchanges/EA/test/bindings/source', auth=('guest', 'guest'))
 
 
-@pytest.mark.wip
 def test_should_create_bindings(mocker: MagicMock) -> None:
     response = mock_response([])
     patch = mocker.patch('requests.post', return_value=response)
@@ -154,7 +140,6 @@ def test_should_create_bindings(mocker: MagicMock) -> None:
                              auth=('guest', 'guest'), json={'routing_key': 'one-r', 'arguments': None})
 
 
-@pytest.mark.wip
 def test_should_raise_exception_when_create_bindings_but_404(mocker: MagicMock) -> None:
     response = mock_bad_response_with_status(404)
     patch = mocker.patch('requests.post', return_value=response)
@@ -168,7 +153,6 @@ def test_should_raise_exception_when_create_bindings_but_404(mocker: MagicMock) 
                              auth=('guest', 'guest'), json={'routing_key': 'one-r', 'arguments': None})
 
 
-@pytest.mark.wip
 def test_should_raise_exception_when_create_bindings_but_401(mocker: MagicMock) -> None:
     response = mock_bad_response_with_status(401)
     patch = mocker.patch('requests.post', return_value=response)
@@ -182,7 +166,6 @@ def test_should_raise_exception_when_create_bindings_but_401(mocker: MagicMock) 
                              auth=('guest', 'guest'), json={'routing_key': 'one-r', 'arguments': None})
 
 
-@pytest.mark.wip
 def test_should_raise_exception_when_create_bindings_but_400(mocker: MagicMock) -> None:
     response = mock_bad_response_with_status(400)
     patch = mocker.patch('requests.post', return_value=response)
@@ -197,7 +180,6 @@ def test_should_raise_exception_when_create_bindings_but_400(mocker: MagicMock) 
                              auth=('guest', 'guest'), json={'routing_key': 'one-r', 'arguments': None})
 
 
-@pytest.mark.wip
 def test_should_raise_exception_when_create_bindings_but_500(mocker: MagicMock) -> None:
     response = mock_bad_response_with_status(500)
     patch = mocker.patch('requests.post', return_value=response)
@@ -211,7 +193,6 @@ def test_should_raise_exception_when_create_bindings_but_500(mocker: MagicMock) 
                              auth=('guest', 'guest'), json={'routing_key': 'one-r', 'arguments': None})
 
 
-@pytest.mark.wip
 def test_should_raise_exception_when_create_bindings_but_teapot(mocker: MagicMock) -> None:
     response = mock_bad_response_with_status(418)
     patch = mocker.patch('requests.post', return_value=response)
@@ -225,7 +206,6 @@ def test_should_raise_exception_when_create_bindings_but_teapot(mocker: MagicMoc
                              auth=('guest', 'guest'), json={'routing_key': 'one-r', 'arguments': None})
 
 
-@pytest.mark.wip
 def test_should_delete_bindings(mocker: MagicMock) -> None:
     response = mock_response([])
     patch = mocker.patch('requests.delete', return_value=response)
@@ -237,7 +217,6 @@ def test_should_delete_bindings(mocker: MagicMock) -> None:
                              auth=('guest', 'guest'))
 
 
-@pytest.mark.wip
 def test_should_raise_exception_when_delete_bindings_but_404(mocker: MagicMock) -> None:
     response = mock_bad_response_with_status(404)
     patch = mocker.patch('requests.delete', return_value=response)
@@ -252,7 +231,6 @@ def test_should_raise_exception_when_delete_bindings_but_404(mocker: MagicMock) 
                              auth=('guest', 'guest'))
 
 
-@pytest.mark.wip
 def test_should_raise_exception_when_delete_bindings_but_401(mocker: MagicMock) -> None:
     response = mock_bad_response_with_status(401)
     patch = mocker.patch('requests.delete', return_value=response)
@@ -267,7 +245,6 @@ def test_should_raise_exception_when_delete_bindings_but_401(mocker: MagicMock) 
                              auth=('guest', 'guest'))
 
 
-@pytest.mark.wip
 def test_should_raise_exception_when_delete_bindings_but_500(mocker: MagicMock) -> None:
     response = mock_bad_response_with_status(500)
     patch = mocker.patch('requests.delete', return_value=response)
@@ -282,7 +259,6 @@ def test_should_raise_exception_when_delete_bindings_but_500(mocker: MagicMock) 
                              auth=('guest', 'guest'))
 
 
-@pytest.mark.wip
 def test_should_raise_exception_when_delete_bindings_but_teapot(mocker: MagicMock) -> None:
     response = mock_bad_response_with_status(418)
     patch = mocker.patch('requests.delete', return_value=response)
@@ -297,7 +273,6 @@ def test_should_raise_exception_when_delete_bindings_but_teapot(mocker: MagicMoc
                              auth=('guest', 'guest'))
 
 
-@pytest.mark.wip
 def test_should_check_equality_between_bindings() -> None:
     a = Binding({'source': 'one-s', 'destination': 'one-d',
                  'routing_key': 'one-r', 'destination_type': 'queue',
