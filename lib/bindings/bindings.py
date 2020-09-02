@@ -38,11 +38,9 @@ class Binding(object):
     def equals(self, other: object) -> bool:
         if not isinstance(other, Binding):
             return NotImplemented
-        return self.source == other.source \
-               and self.destination == other.destination \
-               and self.routing_key == other.routing_key \
-               and self.destination_type == other.destination_type \
-               and self.arguments == other.arguments
+        return self.source == other.source and self.destination == other.destination \
+               and self.routing_key == other.routing_key and self.destination_type == other.destination_type \
+               and self.arguments == other.arguments    # noqa: E127
 
 
 def create_binding(broker: dict, vhost: str, binding: Binding) -> None:

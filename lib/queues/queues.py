@@ -26,4 +26,3 @@ def delete_queue(broker: dict, vhost: str, name: str) -> None:
     url = 'https://{}/api/queues/{}/{}'.format(broker['host'], vhost, name)
     response = requests.delete(url=url, auth=(broker['user'], broker['passwd']))
     handle_rest_response(response=response, url=url)
-

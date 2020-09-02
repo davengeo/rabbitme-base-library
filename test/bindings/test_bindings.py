@@ -1,11 +1,17 @@
+import os
+import sys
+from typing import List
 from unittest.mock import MagicMock
 
 from assertpy import assert_that
 from pyramda import map
 
-from bindings.bindings import get_bindings, get_bindings_from_source, create_binding, Binding, delete_binding
-from common.exceptions import NotFoundException, Unauthorised, ServerErrorException, BadRequest
 from ..common.fixtures import mock_response, fake_broker, mock_bad_response_with_status
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../lib')))
+from common.exceptions import NotFoundException, Unauthorised, ServerErrorException, BadRequest  # noqa: E402
+from bindings.bindings import get_bindings, get_bindings_from_source, create_binding, Binding, \
+    delete_binding  # noqa: E402
 
 
 def test_should_get_existing_bindings(mocker: MagicMock) -> None:
@@ -21,7 +27,7 @@ def test_should_get_existing_bindings(mocker: MagicMock) -> None:
 
 
 def test_should_return_empty_list_when_get_bindings_but_no_bindings(mocker: MagicMock) -> None:
-    bindings = []
+    bindings: List[dict] = []
     response = mock_response(bindings)
     patch = mocker.patch('requests.get', return_value=response)
     result = map(lambda i: i.to_dict(), get_bindings(broker=fake_broker(), vhost='EA'))
@@ -82,7 +88,7 @@ def test_should_return_get_bindings_from_source(mocker: MagicMock) -> None:
 
 
 def test_should_return_empty_list_when_get_bindings_from_source_but_none(mocker: MagicMock) -> None:
-    bindings = []
+    bindings: List[dict] = []
     response = mock_response(bindings)
     patch = mocker.patch('requests.get', return_value=response)
     result = map(lambda i: i.to_dict(), get_bindings_from_source(broker=fake_broker(), vhost='EA', source='test'))

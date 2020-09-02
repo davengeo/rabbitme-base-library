@@ -24,7 +24,7 @@ def autogenerate_password() -> str:
 def salt_hashing_passwd(passwd: str) -> str:
     tmp0 = salt + passwd.encode('utf-8')
     tmp1 = hashlib.sha256(tmp0).digest()
-    return base64.b64encode(salt + tmp1).decode(encoding='UTF-8')
+    return str(base64.b64encode(salt + tmp1).decode(encoding='UTF-8'))
 
 
 def is_present(broker: dict, name: str) -> bool:
@@ -49,8 +49,8 @@ def get_users(broker: dict) -> dict:
     return map(lambda i: i['name'], response.json())
 
 
-def create_user(broker: dict, name: str, pass_flag: str, **kwargs) -> str:
-    passwd = autogenerate_password() if pass_flag is True else kwargs.get('password')
+def create_user(broker: dict, name: str, pass_flag: bool, **kwargs: dict) -> str:
+    passwd: str = autogenerate_password() if pass_flag is True else str(kwargs.get('password'))
     hashed_passwd = salt_hashing_passwd(passwd=passwd)
     url = 'https://{}/api/users/{}'.format(broker['host'], name)
     tags = '' if kwargs.get('tags') is None else kwargs.get('tags')
