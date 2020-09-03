@@ -76,6 +76,7 @@ py-clean: ## Remove artifacts before new build.
 .PHONY: py-build
 py-build: 	## Build a tarball distribution file
 	${VENV_NAME}/bin/python3 setup.py sdist --formats=gztar,zip
+	${VENV_NAME}/bin/python3 setup.py sdist bdist_wheel
 
 .PHONE: py-upload
 py-upload:  ## Upload a wheel to PyPi

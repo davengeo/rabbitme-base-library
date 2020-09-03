@@ -6,5 +6,6 @@ venv
 .mypy_cache
 .pytest_cache
 .coverage
+.pypirc
 rabbitmq_base_library.egg-info/
 dist/
