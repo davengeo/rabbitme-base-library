@@ -9,3 +9,4 @@ venv
 .pypirc
 rabbitmq_base_library.egg-info/
 dist/
+build/
