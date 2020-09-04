@@ -1,6 +1,6 @@
 VENV_NAME?=venv
-LIB_SRC?=lib
-SRC?=lib test
+LIB_SRC?=rabbitmqbaselibrary
+SRC?=${LIB_SRC} test
 
 ARGS?=
 
@@ -75,13 +75,13 @@ py-clean: ## Remove artifacts before new build.
 
 .PHONY: py-build
 py-build: 	## Build a tarball distribution file
-	${VENV_NAME}/bin/python3 setup.py sdist --formats=gztar,zip
-	${VENV_NAME}/bin/python3 setup.py sdist bdist_wheel
+	${VENV_NAME}/bin/python3 setup.py sdist --formats=gztar
+	${VENV_NAME}/bin/python3 setup.py bdist_wheel
 
 .PHONE: py-upload
 py-upload:  ## Upload a wheel to PyPi
-	${VENV_NAME}/bin/twine check dist/*.whl
-	${VENV_NAME}/bin/twine upload dist/*.whl --config-file .pypirc --verbose
+	${VENV_NAME}/bin/twine check dist/*
+	${VENV_NAME}/bin/twine upload dist/* --config-file .pypirc --verbose
 
 .PHONY: py-full-build
-py-full-build: py-activate py-clean py-safety py-lint py-test py-build ## Clean, check, build but not upload.
+py-full-build: py-activate py-clean py-safety py-lint py-test py-build ## Clean, check, test, build but not upload.

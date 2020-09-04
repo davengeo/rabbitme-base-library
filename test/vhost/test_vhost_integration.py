@@ -4,7 +4,7 @@ import sys
 import pytest
 from assertpy import assert_that, fail
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../lib')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../rabbitmqbaselibrary')))
 from vhost.vhost import get_vhosts, is_present, delete_vhost, create_vhost  # noqa: E402
 from common.config import Config  # noqa: E402
 from common.environments import Environments  # noqa: E402

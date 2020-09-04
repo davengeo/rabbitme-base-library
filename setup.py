@@ -1,11 +1,14 @@
-from setuptools import setup, find_namespace_packages
+from setuptools import setup
 
 setup(
     author="David Navarro Alvarez",
     author_email="me@davengeo.com",
     description="rabbitmq-base-library dist",
+    url="https://github.com/davengeo/rabbitme-base-library",
     name="rabbitmq-base-library",
-    data_files=[('ini', ['app.ini']), ('make', ['Makefile'])],
-    packages=find_namespace_packages(include=["lib.*"]),
+    packages=['rabbitmqbaselibrary', 'rabbitmqbaselibrary.bindings', 'rabbitmqbaselibrary.common',
+              'rabbitmqbaselibrary.definitions', 'rabbitmqbaselibrary.exchanges', 'rabbitmqbaselibrary.messages',
+              'rabbitmqbaselibrary.policies', 'rabbitmqbaselibrary.queues', 'rabbitmqbaselibrary.users',
+              'rabbitmqbaselibrary.vhost'],
     install_requires=['requests', 'argparse', 'pyramda', 'rabbitpy'],
 )

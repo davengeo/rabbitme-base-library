@@ -3,7 +3,7 @@ import sys
 
 from assertpy import assert_that
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../lib')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../rabbitmqbaselibrary')))
 from common.environments import Environments  # noqa: E402
 
 

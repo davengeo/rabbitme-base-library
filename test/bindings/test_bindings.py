@@ -8,7 +8,7 @@ from pyramda import map
 
 from ..common.fixtures import mock_response, fake_broker, mock_bad_response_with_status
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../lib')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../rabbitmqbaselibrary')))
 from common.exceptions import NotFoundException, Unauthorised, ServerErrorException, BadRequest  # noqa: E402
 from bindings.bindings import get_bindings, get_bindings_from_source, create_binding, Binding, \
     delete_binding  # noqa: E402
