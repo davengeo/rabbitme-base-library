@@ -28,3 +28,9 @@ def test_should_raise_exception_if_key_not_found() -> None:
         fail('it should raise exception')
     except KeyError as e:
         assert_that(e.args[0]).is_equal_to('no_existing_key')
+
+
+def test_should_get_json_content_for_config_files() -> None:
+    config = Config(os.path.join(os.path.dirname(__file__), '../../app.ini'))
+    assert_that(config.get_json_file('config_files', 'example/example.json')) \
+        .is_equal_to({'example': 'nostradamus'})

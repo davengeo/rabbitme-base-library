@@ -1,4 +1,5 @@
 import configparser
+import json
 import os
 
 
@@ -17,3 +18,7 @@ class Config(object):
 
     def get_file_path(self, key: str, file_name: str) -> str:
         return os.path.join(self.get_path(key=key), file_name)
+
+    def get_json_file(self, key: str, file_name: str) -> dict:
+        with open(self.get_file_path(key=key, file_name=file_name)) as json_file:
+            return json.load(json_file)
