@@ -1,6 +1,6 @@
 import requests
 
-from common.exceptions import BadRequest, ServerErrorException, Unauthorised, NotFoundException
+from rabbitmqbaselibrary.common.exceptions import BadRequest, ServerErrorException, Unauthorised, NotFoundException
 
 
 # noinspection PyPep8Naming

@@ -2,8 +2,8 @@ from unittest.mock import MagicMock
 
 from assertpy import assert_that, fail
 
-from common.exceptions import NotFoundException, ServerErrorException, Unauthorised, BadRequest
-from exchanges.exchanges import get_exchanges, is_present, create_exchange, delete_exchange
+from rabbitmqbaselibrary.common.exceptions import NotFoundException, ServerErrorException, Unauthorised, BadRequest
+from rabbitmqbaselibrary.exchanges.exchanges import get_exchanges, is_present, create_exchange, delete_exchange
 from ..common.fixtures import mock_response, fake_broker, mock_bad_response_with_status
 
 

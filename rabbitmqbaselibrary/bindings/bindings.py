@@ -3,7 +3,7 @@ from typing import List
 import requests
 from pyramda import map
 
-from common.handlers import handle_rest_response, handle_rest_response_with_body
+from rabbitmqbaselibrary.common.handlers import handle_rest_response, handle_rest_response_with_body
 
 
 class Binding(object):
@@ -40,7 +40,7 @@ class Binding(object):
             return NotImplemented
         return self.source == other.source and self.destination == other.destination \
                and self.routing_key == other.routing_key and self.destination_type == other.destination_type \
-               and self.arguments == other.arguments    # noqa: E127
+               and self.arguments == other.arguments  # noqa: E127
 
 
 def create_binding(broker: dict, vhost: str, binding: Binding) -> None:

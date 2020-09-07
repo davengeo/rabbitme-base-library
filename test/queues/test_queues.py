@@ -2,8 +2,8 @@ from unittest.mock import MagicMock
 
 from assertpy import assert_that, fail
 
-from common.exceptions import NotFoundException, Unauthorised, ServerErrorException, BadRequest
-from queues.queues import get_queues, is_present, create_queue, delete_queue
+from rabbitmqbaselibrary.common.exceptions import NotFoundException, Unauthorised, ServerErrorException, BadRequest
+from rabbitmqbaselibrary.queues.queues import get_queues, is_present, create_queue, delete_queue
 from ..common.fixtures import mock_response, mock_bad_response_with_status, fake_broker
 
 

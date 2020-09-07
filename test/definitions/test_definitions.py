@@ -2,8 +2,8 @@ from unittest.mock import MagicMock
 
 from assertpy import assert_that, fail
 
-from common.exceptions import NotFoundException, BadRequest
-from definitions.definitions import get_definitions, load_definitions
+from rabbitmqbaselibrary.common.exceptions import NotFoundException, BadRequest
+from rabbitmqbaselibrary.definitions.definitions import get_definitions, load_definitions
 from ..common.fixtures import mock_response, mock_bad_response_with_status, fake_broker
 
 

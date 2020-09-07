@@ -1,7 +1,7 @@
 # noinspection PyDeepBugsSwappedArgs
 import requests
 
-from common.handlers import handle_rest_response, handle_rest_response_with_body
+from rabbitmqbaselibrary.common.handlers import handle_rest_response, handle_rest_response_with_body
 
 
 # noinspection PyDeepBugsSwappedArgs

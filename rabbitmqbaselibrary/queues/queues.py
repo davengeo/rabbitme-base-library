@@ -1,7 +1,7 @@
 import requests
 from pyramda import map, contains
 
-from common.handlers import handle_rest_response, handle_rest_response_with_body
+from rabbitmqbaselibrary.common.handlers import handle_rest_response, handle_rest_response_with_body
 
 
 def is_present(broker: dict, vhost: str, name: str) -> bool:

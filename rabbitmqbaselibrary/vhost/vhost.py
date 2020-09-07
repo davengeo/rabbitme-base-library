@@ -1,8 +1,8 @@
 import requests
 from pyramda import map, contains
 
-from common.exceptions import ServerErrorException, VhostNotFound, VhostAlreadyExists
-from common.handlers import handle_rest_response
+from rabbitmqbaselibrary.common.exceptions import ServerErrorException, VhostNotFound, VhostAlreadyExists
+from rabbitmqbaselibrary.common.handlers import handle_rest_response
 
 
 def is_present(broker: dict, vhost: str) -> bool:
@@ -14,7 +14,7 @@ def get_vhosts(broker: dict) -> dict:
     response: requests.Response = requests.get(url=url, auth=(broker['user'], broker['passwd']))
     if not response.ok:
         # noinspection PyTypeChecker
-        raise ServerErrorException(response.status_code, url=url)
+        raise ServerErrorException(str(response.status_code), url=url)
     return map(lambda i: i['name'], response.json())
 
 

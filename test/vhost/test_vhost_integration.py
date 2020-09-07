@@ -5,10 +5,10 @@ import pytest
 from assertpy import assert_that, fail
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../rabbitmqbaselibrary')))
-from vhost.vhost import get_vhosts, is_present, delete_vhost, create_vhost  # noqa: E402
-from common.config import Config  # noqa: E402
-from common.environments import Environments  # noqa: E402
-from common.exceptions import VhostNotFound  # noqa: E402
+from rabbitmqbaselibrary.vhost.vhost import get_vhosts, is_present, delete_vhost, create_vhost  # noqa: E402
+from rabbitmqbaselibrary.common.config import Config  # noqa: E402
+from rabbitmqbaselibrary.common.environments import Environments  # noqa: E402
+from rabbitmqbaselibrary.common.exceptions import VhostNotFound  # noqa: E402
 
 config = Config(os.path.join(os.path.dirname(__file__), '../../app.ini'))
 envs = Environments(path_file=config.get_file_path('config_files', 'tme_environments.json'))

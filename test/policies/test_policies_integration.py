@@ -3,11 +3,11 @@ import os
 import pytest
 from assertpy import assert_that, fail
 
-from common.config import Config
-from common.environments import Environments
-from common.exceptions import NotFoundException
-from common.templates import Template
-from policies.policies import get_policies, create_policy, delete_policy, is_present
+from rabbitmqbaselibrary.common.config import Config
+from rabbitmqbaselibrary.common.environments import Environments
+from rabbitmqbaselibrary.common.exceptions import NotFoundException
+from rabbitmqbaselibrary.common.templates import Template
+from rabbitmqbaselibrary.policies.policies import get_policies, create_policy, delete_policy, is_present
 
 config = Config(os.path.join(os.path.dirname(__file__), '../../app.ini'))
 envs = Environments(path_file=config.get_file_path('config_files', 'tme_environments.json'))

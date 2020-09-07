@@ -2,8 +2,9 @@ from unittest.mock import MagicMock
 
 from assertpy import assert_that, fail
 
-from common.exceptions import Unauthorised, VhostAlreadyExists, ServerErrorException, VhostNotFound  # noqa: E402
-from vhost.vhost import get_vhosts, is_present, create_vhost, delete_vhost  # noqa: E402
+from rabbitmqbaselibrary.common.exceptions import Unauthorised, VhostAlreadyExists, ServerErrorException, \
+    VhostNotFound  # noqa: E402
+from rabbitmqbaselibrary.vhost.vhost import get_vhosts, is_present, create_vhost, delete_vhost  # noqa: E402
 from ..common.fixtures import mock_response, fake_broker, mock_bad_response_with_status  # noqa: E402
 
 
@@ -23,7 +24,7 @@ def test_should_raise_exception_when_get_vhost_but_500(mocker: MagicMock) -> Non
         get_vhosts(fake_broker())
         fail('it should raise exception')
     except Exception as e:
-        assert_that(e.args[0]).is_equal_to(500)
+        assert_that(e.args[0]).is_equal_to(str(500))
 
 
 def test_is_present_positive(mocker: MagicMock) -> None:

@@ -2,8 +2,8 @@ import os
 
 from assertpy import assert_that, fail
 
-from common.exceptions import TemplateException
-from common.templates import Template
+from rabbitmqbaselibrary.common.exceptions import TemplateException
+from rabbitmqbaselibrary.common.templates import Template
 
 template: Template = Template(basename=os.path.abspath(os.path.join(os.path.dirname(__file__), '../resources')))
 
@@ -27,7 +27,7 @@ def test_should_raise_exception_when_bad_template() -> None:
         template.load_template('policies/example')
         fail('it should raise exception')
     except TemplateException as e:
-        assert_that(e.message).contains('exception in template policies/example')
+        assert_that(e.message).contains('in template policies/example')
 
 
 def test_should_load_existing_template_and_fill_params() -> None:
@@ -48,4 +48,4 @@ def test_should_raise_exception_when_load_existing_template_but_bad_params() -> 
         template.load_template_with_args('policies/example', {'no': 'a', 'on': 'b'})
         fail('it should raise exception')
     except TemplateException as e:
-        assert_that(e.message).is_equal_to('exception in template policies/example')
+        assert_that(e.message).contains('in template policies/example')

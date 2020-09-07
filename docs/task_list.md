@@ -20,6 +20,5 @@
  - [x] users
  - [x] definitions
  - [x] messages publish and consume 
- - [ ] functional test
- - [ ] build a wheel dist
+ - [x] build a wheel dist
   
