@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Text
 
 import requests
 from pyramda import map
@@ -9,8 +9,8 @@ from rabbitmqbaselibrary.common.handlers import handle_rest_response, handle_res
 class Binding(object):
 
     def __init__(self, obj: dict):
-        self.source = obj.get('source')
-        self.destination = obj.get('destination')
+        self.source: Text = str(obj.get('source'))
+        self.destination: Text = str(obj.get('destination'))
         self.destination_type = obj.get('destination_type')
         self.routing_key = obj.get('routing_key')
         self.arguments = obj.get('arguments')
