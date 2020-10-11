@@ -9,4 +9,4 @@ from __version__ import VERSION  # noqa: E402
 
 
 def test_version() -> None:
-    assert_that(VERSION).is_equal_to('0.8.7')
+    assert_that(VERSION).is_equal_to('0.8.8')

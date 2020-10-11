@@ -15,13 +15,6 @@ template: Template = Template(config.get_path('template_files'))
 
 
 @pytest.mark.integration
-def test_should_response_expected_when_get_policies_with_known_vhost() -> None:
-    test_env: dict = envs.get_env(env='test')
-    result = get_policies(broker=test_env, vhost='EA')
-    assert_that(result).is_length(1).contains_only('dead-letter-exchange')
-
-
-@pytest.mark.integration
 def test_should_response_expected_when_get_policies_but_unknown_vhost() -> None:
     test_env: dict = envs.get_env(env='test')
     try:

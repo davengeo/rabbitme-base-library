@@ -57,6 +57,14 @@ def delete_binding(broker: dict, vhost: str, binding: Binding) -> None:
     handle_rest_response(response=response, url=url)
 
 
+def is_present(broker: dict, vhost: str, binding: Binding) -> bool:
+    existing: List[Binding] = get_bindings_from_source(broker=broker, vhost=vhost, source=binding.source)
+    result: bool = False
+    for it in existing:
+        result = True if it.equals(binding) else result
+    return result
+
+
 def get_bindings_from_source(broker: dict, vhost: str, source: str) -> List[Binding]:
     url = 'https://{}/api/exchanges/{}/{}/bindings/source'.format(broker['host'], vhost, source)
     response = requests.get(url=url, auth=(broker['user'], broker['passwd']))

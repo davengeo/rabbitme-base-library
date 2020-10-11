@@ -3,15 +3,44 @@ import sys
 from typing import List
 from unittest.mock import MagicMock
 
+import pytest
 from assertpy import assert_that
 from pyramda import map
 
 from ..common.fixtures import mock_response, fake_broker, mock_bad_response_with_status
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../rabbitmqbaselibrary')))
-from rabbitmqbaselibrary.common.exceptions import NotFoundException, Unauthorised, ServerErrorException, BadRequest  # noqa: E402
+from rabbitmqbaselibrary.common.exceptions import NotFoundException, Unauthorised, ServerErrorException, \
+    BadRequest  # noqa: E402
 from rabbitmqbaselibrary.bindings.bindings import get_bindings, get_bindings_from_source, create_binding, Binding, \
-    delete_binding  # noqa: E402
+    delete_binding, is_present  # noqa: E402
+
+
+@pytest.mark.wip
+def test_should_return_true_when_binding_already_present(mocker: MagicMock) -> None:
+    bindings = [{'source': 'one-s', 'destination': 'one-d',
+                 'routing_key': 'one-r', 'destination_type': 'queue', 'arguments': None},
+                {'source': 'two-s', 'destination': 'two-d',
+                 'routing_key': 'two-r', 'destination_type': 'exchange', 'arguments': None}]
+    response = mock_response(bindings)
+    patch = mocker.patch('requests.get', return_value=response)
+    result = is_present(broker=fake_broker(), vhost='EA', binding=Binding(bindings[0]))
+    assert_that(result).is_true()
+    patch.assert_called_with(url='https://fake-broker/api/exchanges/EA/one-s/bindings/source', auth=('guest', 'guest'))
+
+
+@pytest.mark.wip
+def test_should_return_false_when_binding_not_present(mocker: MagicMock) -> None:
+    bindings = [{'source': 'two-s', 'destination': 'two-d',
+                 'routing_key': 'two-r', 'destination_type': 'exchange', 'arguments': None}]
+    response = mock_response(bindings)
+    patch = mocker.patch('requests.get', return_value=response)
+    result = is_present(broker=fake_broker(), vhost='EA', binding=Binding({'source': 'one-s', 'destination': 'one-d',
+                                                                           'routing_key': 'one-r',
+                                                                           'destination_type': 'queue',
+                                                                           'arguments': None}))
+    assert_that(result).is_false()
+    patch.assert_called_with(url='https://fake-broker/api/exchanges/EA/one-s/bindings/source', auth=('guest', 'guest'))
 
 
 def test_should_get_existing_bindings(mocker: MagicMock) -> None:
