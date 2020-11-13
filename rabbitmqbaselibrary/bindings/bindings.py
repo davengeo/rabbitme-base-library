@@ -1,3 +1,4 @@
+import logging
 from typing import List, Text
 
 import requests
@@ -72,9 +73,19 @@ def get_bindings_from_source(broker: dict, vhost: str, source: str) -> List[Bind
     return map(lambda i: Binding(i), response.json())
 
 
-# noinspection PyDeepBugsSwappedArgs
+# noinspection PyDeepBugsSwappedArgs,PyDeepBugsSwappedArgs
 def get_bindings(broker: dict, vhost: str) -> List[Binding]:
     url = 'https://{}/api/bindings/{}'.format(broker['host'], vhost)
     response = requests.get(url=url, auth=(broker['user'], broker['passwd']))
     handle_rest_response(response=response, url=url)
     return map(lambda i: Binding(i), response.json())
+
+
+def safe_create_binding(broker: dict, vhost: str, binding: Binding) -> None:
+    if not is_present(broker=broker, vhost=vhost, binding=binding):
+        create_binding(broker=broker, vhost=vhost, binding=binding)
+    else:
+        logging.debug(
+            'binding between {} and {} already existing, skipping'.format(
+                binding.source, binding.destination)
+        )

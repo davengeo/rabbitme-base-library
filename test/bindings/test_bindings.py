@@ -13,10 +13,9 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../.
 from rabbitmqbaselibrary.common.exceptions import NotFoundException, Unauthorised, ServerErrorException, \
     BadRequest  # noqa: E402
 from rabbitmqbaselibrary.bindings.bindings import get_bindings, get_bindings_from_source, create_binding, Binding, \
-    delete_binding, is_present  # noqa: E402
+    delete_binding, is_present, safe_create_binding  # noqa: E402
 
 
-@pytest.mark.wip
 def test_should_return_true_when_binding_already_present(mocker: MagicMock) -> None:
     bindings = [{'source': 'one-s', 'destination': 'one-d',
                  'routing_key': 'one-r', 'destination_type': 'queue', 'arguments': None},
@@ -29,7 +28,6 @@ def test_should_return_true_when_binding_already_present(mocker: MagicMock) -> N
     patch.assert_called_with(url='https://fake-broker/api/exchanges/EA/one-s/bindings/source', auth=('guest', 'guest'))
 
 
-@pytest.mark.wip
 def test_should_return_false_when_binding_not_present(mocker: MagicMock) -> None:
     bindings = [{'source': 'two-s', 'destination': 'two-d',
                  'routing_key': 'two-r', 'destination_type': 'exchange', 'arguments': None}]
@@ -325,3 +323,33 @@ def test_should_check_equality_between_bindings() -> None:
                  'arguments': {'something': True}, 'properties_key': 'EE'})
     assert_that(a.equals(b)).is_false()
     assert_that(a.equals([])).is_equal_to(NotImplemented)
+
+
+def test_should_create_binding_when_safe_create_and_it_doesnt_exist(mocker: MagicMock) -> None:
+    bindings = [{'source': 'one-s', 'destination': 'one-d',
+                 'routing_key': 'one-r', 'destination_type': 'queue', 'arguments': None},
+                {'source': 'two-s', 'destination': 'two-d',
+                 'routing_key': 'two-r', 'destination_type': 'exchange', 'arguments': None}]
+    mocker.patch('requests.get', return_value=mock_response(bindings))
+    patch = mocker.patch('requests.post', return_value=mock_response([]))
+    binding = {'source': 'three-s', 'destination': 'one-d',
+               'routing_key': 'one-r', 'destination_type': 'queue',
+               'arguments': None}
+    safe_create_binding(broker=fake_broker(), vhost='EA', binding=Binding(binding))
+    patch.assert_called_with(url='https://fake-broker/api/bindings/EA/e/three-s/q/one-d',
+                             auth=('guest', 'guest'), json={'routing_key': 'one-r', 'arguments': None})
+
+
+@pytest.mark.wip
+def test_should_skip_create_binding_when_safe_create_but_it_exists(mocker: MagicMock) -> None:
+    bindings = [{'source': 'one-s', 'destination': 'one-d',
+                 'routing_key': 'one-r', 'destination_type': 'queue', 'arguments': None},
+                {'source': 'two-s', 'destination': 'two-d',
+                 'routing_key': 'two-r', 'destination_type': 'exchange', 'arguments': None}]
+    mocker.patch('requests.get', return_value=mock_response(bindings))
+    patch = mocker.patch('requests.post', return_value=mock_response([]))
+    binding = {'source': 'one-s', 'destination': 'one-d',
+               'routing_key': 'one-r', 'destination_type': 'queue',
+               'arguments': None}
+    safe_create_binding(broker=fake_broker(), vhost='EA', binding=Binding(binding))
+    patch.assert_not_called()
