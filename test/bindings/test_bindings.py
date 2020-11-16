@@ -3,7 +3,6 @@ import sys
 from typing import List
 from unittest.mock import MagicMock
 
-import pytest
 from assertpy import assert_that
 from pyramda import map
 
@@ -340,7 +339,6 @@ def test_should_create_binding_when_safe_create_and_it_doesnt_exist(mocker: Magi
                              auth=('guest', 'guest'), json={'routing_key': 'one-r', 'arguments': None})
 
 
-@pytest.mark.wip
 def test_should_skip_create_binding_when_safe_create_but_it_exists(mocker: MagicMock) -> None:
     bindings = [{'source': 'one-s', 'destination': 'one-d',
                  'routing_key': 'one-r', 'destination_type': 'queue', 'arguments': None},

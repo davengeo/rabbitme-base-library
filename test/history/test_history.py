@@ -2,13 +2,10 @@ import os
 import sys
 from unittest.mock import MagicMock, call
 
-import pytest
-
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 from rabbitmqbaselibrary.history.history import History  # noqa: E402
 
 
-@pytest.mark.debug
 def test_should_initialise_db(mocker: MagicMock) -> None:
     conn = MagicMock()
     cur = MagicMock()
@@ -25,5 +22,5 @@ def test_should_initialise_db(mocker: MagicMock) -> None:
     cur.execute.assert_has_calls(calls=calls, any_order=False)
 
 
-def test_should_save_record_db(mocker: MagicMock) -> None:
-    pass
+# def test_should_save_record_db(mocker: MagicMock) -> None:
+#     pass
