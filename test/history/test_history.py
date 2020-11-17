@@ -1,7 +1,6 @@
 import os
 import sys
-from unittest import mock
-from unittest.mock import MagicMock, call, mock_open, patch, ANY
+from unittest.mock import MagicMock, call, mock_open, patch
 
 import pytest
 from assertpy import assert_that
