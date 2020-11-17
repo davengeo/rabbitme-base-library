@@ -1,6 +1,12 @@
 import os
 import sys
-from unittest.mock import MagicMock, call
+from unittest import mock
+from unittest.mock import MagicMock, call, mock_open, patch, ANY
+
+import pytest
+from assertpy import assert_that
+
+from common.report import Report
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 from rabbitmqbaselibrary.history.history import History  # noqa: E402
@@ -22,5 +28,31 @@ def test_should_initialise_db(mocker: MagicMock) -> None:
     cur.execute.assert_has_calls(calls=calls, any_order=False)
 
 
-# def test_should_save_record_db(mocker: MagicMock) -> None:
-#     pass
+def test_should_not_initialise_db(mocker: MagicMock) -> None:
+    conn = MagicMock()
+    cur = MagicMock()
+    conn.cursor.return_value = cur
+    cur.fetchone.return_value = []
+    patch_sql = mocker.patch('sqlite3.connect', return_value=conn)
+    History(hist_path='.', db_name='test')
+    patch_sql.assert_called_once()
+    conn.cursor.assert_called_once()
+    calls = [call('''SELECT name FROM sqlite_master WHERE type='table' AND name=?''', ('History',))]
+    cur.execute.assert_has_calls(calls=calls, any_order=False)
+
+
+@pytest.mark.debug
+def test_should_create_record(mocker: MagicMock) -> None:
+    conn = MagicMock()
+    cur = MagicMock()
+    conn.cursor.return_value = cur
+    cur.fetchone.return_value = []
+    mocker.patch('sqlite3.connect', return_value=conn)
+    history = History(hist_path='.', db_name='test')
+    report = Report()
+    report.append_event(name='test-record', record={'hello': 'test'})
+    m = mock_open()
+    # noinspection PyDeepBugsSwappedArgs
+    with patch('{}.open'.format('rabbitmqbaselibrary.history.history'), m):
+        history.save_report(report=report, input_data='test', env='test')
+    assert_that(m.call_args_list).is_length(2)
